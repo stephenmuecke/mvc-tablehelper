@@ -48,9 +48,9 @@ namespace Sandtrap.Web.DataAnnotations
         /// </summary>
         /// <remarks>
         /// If true, hidden inputs are created for the property (including properties
-        /// of a complex type) and the text displayed in the table cell is the the value 
-        /// of the property or the value of the <see cref="DisplayProperty"/> if the 
-        /// property is a complex type.
+        /// of a complex type).
+        /// If the property is a complex type, a table cell is created for each property of
+        /// the type unless the <see cref="DisplayProperty"/> is specified.
         /// </remarks>
         public bool IsReadonly { get; set; }
 
