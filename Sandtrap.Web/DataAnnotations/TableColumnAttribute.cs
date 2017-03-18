@@ -76,8 +76,8 @@ namespace Sandtrap.Web.DataAnnotations
         /// <summary>
         /// If applied to a property which is a complex type, gets or sets the name of
         /// property to display in the table cell.
-        /// In a readonly table all other child properties are ignored. 
-        /// In an editable table, all other child properties are rendered as hidden inputs.
+        /// In a readonly table all other properties of the type are ignored. 
+        /// In an editable table, all properties of the type are rendered as hidden inputs.
         /// </summary>
         public string DisplayProperty { get; set; }
 
