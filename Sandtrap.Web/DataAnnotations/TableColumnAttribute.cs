@@ -141,11 +141,7 @@ namespace Sandtrap.Web.DataAnnotations
             // If rendering totals, check we can
             if (IncludeTotal)
             {
-                if (propertyMetadata != null && propertyMetadata.ModelType.IsNumeric())
-                {
-                    metadata.AdditionalValues[Resources.TableColumnAttribute_IncludeTotal] = true;
-                }
-                else if (metadata.ModelType.IsNumeric())
+                if (metadata.ModelType.IsNumeric())
                 {
                     metadata.AdditionalValues[Resources.TableColumnAttribute_IncludeTotal] = true;
                 }
