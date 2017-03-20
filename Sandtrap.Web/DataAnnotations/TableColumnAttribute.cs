@@ -48,9 +48,9 @@ namespace Sandtrap.Web.DataAnnotations
         /// </summary>
         /// <remarks>
         /// If true, hidden inputs are created for the property (including properties
-        /// of a complex type) and the text displayed in the table cell is the the value 
-        /// of the property or the value of the <see cref="DisplayProperty"/> if the 
-        /// property is a complex type.
+        /// of a complex type).
+        /// If the property is a complex type, a table cell is created for each property of
+        /// the type unless the <see cref="DisplayProperty"/> is specified.
         /// </remarks>
         public bool IsReadonly { get; set; }
 
@@ -65,19 +65,9 @@ namespace Sandtrap.Web.DataAnnotations
 
         /// <summary>
         /// If applied to a property which is a complex type, gets or sets the name of
-        /// property to uniquely identify the property in a select control.
-        /// </summary>
-        /// <remarks>
-        /// The property is only applicable to edit tables.
-        /// The value is ignored if the property is not a complex type.
-        /// </remarks>
-        public string IDProperty { get; set; }
-
-        /// <summary>
-        /// If applied to a property which is a complex type, gets or sets the name of
         /// property to display in the table cell.
-        /// In a readonly table all other child properties are ignored. 
-        /// In an editable table, all other child properties are rendered as hidden inputs.
+        /// In a readonly table all other properties of the type are ignored. 
+        /// In an editable table, all properties of the type are rendered as hidden inputs.
         /// </summary>
         public string DisplayProperty { get; set; }
 
@@ -117,21 +107,10 @@ namespace Sandtrap.Web.DataAnnotations
                 metadata.AdditionalValues[Resources.TableColumnAttribute_Readonly] = true;
             }
             // Get the display property
-            ModelMetadata propertyMetadata = null;
-            if (IDProperty != null && metadata.IsComplexType)
-            {
-                // Check the ID property exists
-                propertyMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == IDProperty);
-                if (propertyMetadata == null)
-                {
-                    throw new ArgumentException(String.Format(Resources.TableColumnAttribute_InvalidProperty, metadata.ModelType.Name, IDProperty));
-                }
-                metadata.AdditionalValues[Resources.TableColumnAttribute_IDProperty] = IDProperty;
-            }
             if (DisplayProperty != null && metadata.IsComplexType)
             {
                 // Check the display property exists
-                propertyMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == DisplayProperty);
+                ModelMetadata propertyMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == DisplayProperty);
                 if (propertyMetadata == null)
                 {
                     throw new ArgumentException(String.Format(Resources.TableColumnAttribute_InvalidProperty, metadata.ModelType.Name, DisplayProperty));
@@ -141,11 +120,7 @@ namespace Sandtrap.Web.DataAnnotations
             // If rendering totals, check we can
             if (IncludeTotal)
             {
-                if (propertyMetadata != null && propertyMetadata.ModelType.IsNumeric())
-                {
-                    metadata.AdditionalValues[Resources.TableColumnAttribute_IncludeTotal] = true;
-                }
-                else if (metadata.ModelType.IsNumeric())
+                if (metadata.ModelType.IsNumeric())
                 {
                     metadata.AdditionalValues[Resources.TableColumnAttribute_IncludeTotal] = true;
                 }
