@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using System.Web.Mvc;
-using Sandtrap.Web.Properties;
 using Sandtrap.Web.Models;
+using Sandtrap.Web.Properties;
 
 namespace Sandtrap.Web.DataAnnotations
 {
