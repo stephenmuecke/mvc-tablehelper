@@ -65,16 +65,6 @@ namespace Sandtrap.Web.DataAnnotations
 
         /// <summary>
         /// If applied to a property which is a complex type, gets or sets the name of
-        /// property to uniquely identify the property in a select control.
-        /// </summary>
-        /// <remarks>
-        /// The property is only applicable to edit tables.
-        /// The value is ignored if the property is not a complex type.
-        /// </remarks>
-        public string IDProperty { get; set; }
-
-        /// <summary>
-        /// If applied to a property which is a complex type, gets or sets the name of
         /// property to display in the table cell.
         /// In a readonly table all other properties of the type are ignored. 
         /// In an editable table, all properties of the type are rendered as hidden inputs.
@@ -117,21 +107,10 @@ namespace Sandtrap.Web.DataAnnotations
                 metadata.AdditionalValues[Resources.TableColumnAttribute_Readonly] = true;
             }
             // Get the display property
-            ModelMetadata propertyMetadata = null;
-            if (IDProperty != null && metadata.IsComplexType)
-            {
-                // Check the ID property exists
-                propertyMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == IDProperty);
-                if (propertyMetadata == null)
-                {
-                    throw new ArgumentException(String.Format(Resources.TableColumnAttribute_InvalidProperty, metadata.ModelType.Name, IDProperty));
-                }
-                metadata.AdditionalValues[Resources.TableColumnAttribute_IDProperty] = IDProperty;
-            }
             if (DisplayProperty != null && metadata.IsComplexType)
             {
                 // Check the display property exists
-                propertyMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == DisplayProperty);
+                ModelMetadata propertyMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == DisplayProperty);
                 if (propertyMetadata == null)
                 {
                     throw new ArgumentException(String.Format(Resources.TableColumnAttribute_InvalidProperty, metadata.ModelType.Name, DisplayProperty));
