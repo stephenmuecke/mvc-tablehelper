@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
-using Tables.Properties; // TODO: Sandtrap.Web.Properties
+using Sandtrap.Web.Properties;
 
 namespace Sandtrap.Web.DataAnnotations
 {
