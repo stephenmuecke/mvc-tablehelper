@@ -6,8 +6,8 @@ namespace Sandtrap.Web.DataAnnotations
 {
 
     /// <summary>
-    /// An attribute used to define the values used to generate a datalist element used to
-    /// provide basic auto-complete functionality for a textbox element.
+    /// An attribute used to generate a datalist element to provide basic auto-complete 
+    /// functionality for a textbox element.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class DataListAttribute : Attribute, IMetadataAware
