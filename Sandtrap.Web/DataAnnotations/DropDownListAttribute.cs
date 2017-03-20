@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
-using Tables.Properties; // TODO: Sandtrap.Web.Resources
+using Sandtrap.Web.Properties;
 
 namespace Sandtrap.Web.DataAnnotations
 {
@@ -79,6 +79,5 @@ namespace Sandtrap.Web.DataAnnotations
         #endregion
 
     }
-
 
 }
