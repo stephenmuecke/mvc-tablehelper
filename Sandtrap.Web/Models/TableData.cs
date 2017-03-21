@@ -81,6 +81,11 @@ namespace Sandtrap.Web.Models
         /// the data in a row is marked for deletion.
         /// </summary>
         internal string IsActiveProperty { get; set; }
+        
+        /// <summary>
+        /// Gets or sets a value indicating if the row is marked for deletion.
+        /// </summary>
+        internal bool IsArchived { get; set; }
 
         /// <summary>
         /// Gets or sets the data for each column in the table.
