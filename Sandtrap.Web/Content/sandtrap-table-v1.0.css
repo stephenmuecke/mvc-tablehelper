@@ -117,6 +117,14 @@ table .table-text {
     right: 4px;
 }
 
+.edit-table select.table-control {
+    padding-left: 0;
+}
+
+    .edit-table select.table-control + .table-text {
+        padding-left: 5px;
+    }
+
 .edit-table .numeric-input {
     text-align: inherit;
 }
