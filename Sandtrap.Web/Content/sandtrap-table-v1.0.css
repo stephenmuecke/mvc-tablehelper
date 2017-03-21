@@ -83,6 +83,7 @@ table .table-text {
 
 .edit-table .footer-total {
     padding: 0 4px;
+    text-align: right;
 }
 
 /* Controls */
