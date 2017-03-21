@@ -118,7 +118,7 @@ table .table-text {
 }
 
 .edit-table .numeric-input {
-    text-align: right;
+    text-align: inherit;
 }
 
 .edit-table input[type='checkbox'] {
