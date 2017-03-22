@@ -49,7 +49,12 @@ namespace Sandtrap.Web.Html
                 string message = Resources.Table_NullCollection;
                 throw new NullReferenceException(message);
             }
-            // Check types that wont make any sense to render in a table (IDictionary, IGrouping, Lookup)
+            // Check types that wont make any sense to render in a table (String, IDictionary, IGrouping, Lookup)
+            if (metadata.ModelType == typeof(string))
+            {
+                string message = Resources.Table_UnresolvedType;
+                throw new ArgumentException(message);
+            }
             if (IsGrouped(metadata.Model))
             {
                 string message = Resources.Table_GroupedCollection;
@@ -123,7 +128,12 @@ namespace Sandtrap.Web.Html
                 string message = Resources.Table_NullCollection;
                 throw new NullReferenceException(message);
             }
-            // Check types that wont make any sense to render in a table (IDictionary, IGrouping, Lookup)
+            // Check types that wont make any sense to render in a table (String, IDictionary, IGrouping, Lookup)
+            if (metadata.ModelType == typeof(string))
+            {
+                string message = Resources.Table_UnresolvedType;
+                throw new ArgumentException(message);
+            }
             if (IsGrouped(metadata.Model))
             {
                 string message = Resources.Table_GroupedCollection;
