@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using Sandtrap.Extensions;
 using Sandtrap.Web.Models;
-using Tables.Properties; // TODO: Sandtrap.Web.Properties
+using Sandtrap.Web.Properties;
 
 namespace Sandtrap.Web.Html
 {
