@@ -115,7 +115,7 @@ namespace Sandtrap.Web.DataAnnotations
                 // Check the controller has been provided
                 if (Controller == null)
                 {
-                    throw new ArgumentNullException(Resources.TableDisplayAttribute_NullController);
+                    throw new ArgumentNullException("Controller", Resources.TableDisplayAttribute_NullController);
                 }
                 // Check the ID property exists
                 ModelMetadata idMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == IDProperty);
