@@ -55,6 +55,10 @@ namespace Sandtrap.Web.DataAnnotations
         /// </param>
         public void OnMetadataCreated(ModelMetadata metadata)
         {
+            if (String.IsNullOrEmpty(DataListProperty))
+            {
+                return;
+            }
             // Add metadata
             metadata.AdditionalValues[Resources.DataListAttribute_DataListProperty] = DataListProperty;
         }
