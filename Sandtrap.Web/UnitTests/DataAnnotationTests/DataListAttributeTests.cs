@@ -21,8 +21,11 @@ namespace Sandtrap.Web.UnitTests
             public string Baz { get; set; }
         }
 
+        /// <summary>
+        /// An AdditionalValues entry should not be added if the DataListProperty is missing.
+        /// </summary>
         [TestMethod]
-        public void InvalidDataListAttributeDoesNotAddAdditionalValues()
+        public void MissingDataListPropertyDoesNotAddAdditionalValues()
         {
             // arrange
             var type = typeof(Foo);
@@ -32,6 +35,9 @@ namespace Sandtrap.Web.UnitTests
             Assert.IsFalse(metadata.AdditionalValues.ContainsKey(Resources.DataListAttribute_DataListProperty));
         }
 
+        /// <summary>
+        /// An AdditionalValues entry should be added matching the DataListProperty.
+        /// </summary>
         [TestMethod]
         public void DataListAttributeAddsAdditionalValues()
         {
