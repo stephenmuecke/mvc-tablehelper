@@ -91,8 +91,16 @@ namespace Sandtrap.Web.Html
                         continue;
                     }
                     // Recursive call to render a hidden input for the property
-                    string prefix = string.Format("{0}.{1}", propertyName, propertyMetadata.PropertyName);
-                    html.Append(HiddenInput(propertyMetadata, prefix, false));
+                    string prefix = null;
+                    if (String.IsNullOrEmpty(propertyName))
+                    {
+                        prefix = propertyMetadata.PropertyName;
+                    }
+                    else
+                    {
+                        prefix = string.Format("{0}.{1}", propertyName, propertyMetadata.PropertyName);
+                    }
+                    html.Append(HiddenInput(propertyMetadata, prefix, true));
                 }
             }
             else
@@ -114,7 +122,7 @@ namespace Sandtrap.Web.Html
             input.MergeAttribute("type", "hidden");
             input.MergeAttribute("name", propertyName);
             input.MergeAttribute("value", string.Format("{0}", value));
-            return input.ToString();
+            return input.ToString(TagRenderMode.SelfClosing);
         }
 
         #endregion
