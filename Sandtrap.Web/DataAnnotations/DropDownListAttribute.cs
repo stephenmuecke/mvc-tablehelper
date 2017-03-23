@@ -71,6 +71,10 @@ namespace Sandtrap.Web.DataAnnotations
         /// </summary>
         public void OnMetadataCreated(ModelMetadata metadata)
         {
+            if (String.IsNullOrEmpty(SelectListProperty))
+            {
+                return;
+            }
             // Add metadata
             metadata.AdditionalValues[Resources.DropDownListAttribute_SelectListProperty] = SelectListProperty;
             metadata.AdditionalValues[Resources.DropDownListAttribute_OptionLabel] = OptionLabel;
