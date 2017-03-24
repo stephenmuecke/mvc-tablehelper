@@ -38,7 +38,7 @@ namespace Sandtrap.Web.Html
         /// The property is a grouped collection (<see cref="T:System.Collections.Generic.IDictionary<TKey, TValue>"/> or
         /// <see cref="System.Linq.IGrouping<TKey, TElement>"/> or <see cref="System.Linq.ILookup<TKey, TElement>"/>)
         /// </exception>
-        public static MvcHtmlString TableDisplayFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IEnumerable>> expression)
+        public static MvcHtmlString TableDisplayFor<TModel>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IEnumerable>> expression) 
         {
             // Get the model metadata
             ModelMetadata metadata = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
@@ -49,7 +49,7 @@ namespace Sandtrap.Web.Html
                 string message = Resources.Table_NullCollection;
                 throw new NullReferenceException(message);
             }
-            // Check types that wont make any sense to render in a table (String, IDictionary, IGrouping, Lookup)
+            // Check types that wont make any sense to render in a table (IDictionary, IGrouping, Lookup)
             if (metadata.ModelType == typeof(string))
             {
                 string message = Resources.Table_UnresolvedType;
@@ -84,7 +84,7 @@ namespace Sandtrap.Web.Html
             html.Append(header);
             // Add table body
             IEnumerable collection = metadata.Model as IEnumerable;
-            string body = ReadonlyTableBody(collection, type, tableData);
+            string body = ReadonlyTableBody(helper, collection, type, tableData);
             html.Append(body);
             // Add table footer (only if there is something to show)
             if (tableData.Columns.Any(c => c.IncludeTotals))
@@ -128,7 +128,7 @@ namespace Sandtrap.Web.Html
                 string message = Resources.Table_NullCollection;
                 throw new NullReferenceException(message);
             }
-            // Check types that wont make any sense to render in a table (String, IDictionary, IGrouping, Lookup)
+            // Check types that wont make any sense to render in a table (IDictionary, IGrouping, Lookup)
             if (metadata.ModelType == typeof(string))
             {
                 string message = Resources.Table_UnresolvedType;
@@ -530,13 +530,14 @@ namespace Sandtrap.Web.Html
         {
             // Build the html for each cell
             StringBuilder html = new StringBuilder();
-            if (!isRecursive && data.IncludeRowNumbers)
+            bool isReadonly = !data.IsEditMode;
+            if (isReadonly && !isRecursive && data.IncludeRowNumbers)
             {
                 string rowNumberCell = HeaderCell("No.");
                 html.Append(rowNumberCell);
             }
             string linkProperty = null;
-            if (metaData.IsLink())
+            if (isReadonly && metaData.IsLink())
             {
                 linkProperty = (string)metaData.AdditionalValues[Resources.TableLinkAttribute_DisplayProperty];
             }
@@ -544,6 +545,8 @@ namespace Sandtrap.Web.Html
             foreach (ModelMetadata propertyMetadata in metaData.Properties)
             {
                 TableColumnData column = new TableColumnData();
+                // for debugging
+                column.PropertyName = propertyMetadata.PropertyName;
                 if (propertyMetadata.IsExcluded())
                 {
                     column.IsExcluded = true;
@@ -563,11 +566,11 @@ namespace Sandtrap.Web.Html
                     data.Columns.Add(column);
                     continue;
                 }
-                if (propertyMetadata.PropertyName == linkProperty)
+                if (isReadonly && propertyMetadata.PropertyName == linkProperty)
                 {
                     column.IsLink = true;
                 }
-                if (propertyMetadata.DataTypeName == "EmailAddress")
+                else if (isReadonly && propertyMetadata.DataTypeName == "EmailAddress")
                 {
                     column.IsEmailAddress = true;
                 }
@@ -581,8 +584,12 @@ namespace Sandtrap.Web.Html
                         column.NoRepeat = true;
                     }
                 }
-                column.DataListProperty = propertyMetadata.DataListProperty();
-                column.SelectListProperty = propertyMetadata.SelectListProperty();
+                if (!isReadonly)
+                {
+                    column.DataListProperty = propertyMetadata.DataListProperty();
+                    column.SelectListProperty = propertyMetadata.SelectListProperty();
+                }
+
                 if (propertyMetadata.IsComplexType)
                 {
                     if (typeof(IEnumerable).IsAssignableFrom(propertyMetadata.ModelType))
@@ -593,7 +600,7 @@ namespace Sandtrap.Web.Html
                         continue;
                     }
                     // Is the property displayed as a hyperlink
-                    if (propertyMetadata.IsLink())
+                    if (isReadonly && propertyMetadata.IsLink())
                     {
                         column.IsLink = true;
                         data.Columns.Add(column);
@@ -681,7 +688,7 @@ namespace Sandtrap.Web.Html
         }
 
         // Returns the <tbody> element
-        private static string ReadonlyTableBody(IEnumerable collection, Type type, TableData data)
+        private static string ReadonlyTableBody(HtmlHelper helper, IEnumerable collection, Type type, TableData data)
         {
             StringBuilder html = new StringBuilder();
             int? rowNumber = null;
@@ -695,7 +702,7 @@ namespace Sandtrap.Web.Html
                 int columnNumber = 0;
                 ModelMetadata itemMetadata = ModelMetadataProviders.Current.GetMetadataForType(() => item, type);
                 TagBuilder row = new TagBuilder("tr");
-                row.InnerHtml = ReadonlyTableBodyCells(itemMetadata, data, rowNumber, ref columnNumber);
+                row.InnerHtml = ReadonlyTableBodyCells(helper, itemMetadata, data, rowNumber, ref columnNumber);
                 html.Append(row.ToString());
             }
             // Build table body
@@ -706,7 +713,7 @@ namespace Sandtrap.Web.Html
         }
 
         // Returns the <td> elements for each table row
-        private static string ReadonlyTableBodyCells(ModelMetadata metaData, TableData data, int? rowNumber, ref int columnIndex, bool isRecursive = false)
+        private static string ReadonlyTableBodyCells(HtmlHelper helper, ModelMetadata metadata, TableData data, int? rowNumber, ref int columnIndex, bool isRecursive = false)
         {
             // Build the html for each column
             string blankCell = TableCell(null);
@@ -716,7 +723,7 @@ namespace Sandtrap.Web.Html
                 string cell = TableCell(rowNumber.Value.ToString());
                 html.Append(cell);
             }
-            foreach (ModelMetadata propertyMetadata in metaData.Properties)
+            foreach (ModelMetadata propertyMetadata in metadata.Properties)
             {
                 TableColumnData column = data.Columns[columnIndex];
                 if (column.IsExcluded || column.IsHidden)
@@ -748,7 +755,7 @@ namespace Sandtrap.Web.Html
                     else
                     {
                         // Add cells for each property of the type (recursive call)
-                        string cells = ReadonlyTableBodyCells(propertyMetadata, data, null, ref columnIndex, true);
+                        string cells = ReadonlyTableBodyCells(helper, propertyMetadata, data, null, ref columnIndex, true);
                         html.Append(cells);
                     }
                 }
@@ -766,38 +773,19 @@ namespace Sandtrap.Web.Html
                     }
                     else if (propertyMetadata.Model != null && column.IsLink)
                     {
-                        // Build link
-                        TagBuilder link = new TagBuilder("a");
-                        // The link could be applied either at class level or property level
-                        string url = null;
-                        if (metaData.AdditionalValues.ContainsKey(Resources.TableLinkAttribute_LinkUrl))
+                        // The link can be applied at either class or property level
+                        ModelMetadata linkMetadata = metadata;
+                        if (!metadata.AdditionalValues.ContainsKey(Resources.TableLinkAttribute_IncludeLink))
                         {
-                            url = (string)metaData.AdditionalValues[Resources.TableLinkAttribute_LinkUrl];
+                            linkMetadata = propertyMetadata;
                         }
-                        else
-                        {
-                            url = (string)propertyMetadata.AdditionalValues[Resources.TableLinkAttribute_LinkUrl];
-                        }
-                        link.MergeAttribute("href", url);
-                        // Get the display property
-                        string displayProperty = null;
-                        if (metaData.AdditionalValues.ContainsKey(Resources.TableLinkAttribute_DisplayProperty))
-                        {
-                            displayProperty = (string)metaData.AdditionalValues[Resources.TableLinkAttribute_DisplayProperty];
-                        }
-                        else
-                        {
-                            displayProperty = (string)propertyMetadata.AdditionalValues[Resources.TableLinkAttribute_DisplayProperty];
-                        }
-                        if (propertyMetadata.PropertyName == displayProperty)
-                        {
-                            string formatString = propertyMetadata.DisplayFormatString ?? "{0}";
-                            link.InnerHtml = string.Format(formatString, propertyMetadata.Model);
-                        }
-                        else
-                        {
-                            link.InnerHtml = string.Format("{0}", propertyMetadata.Properties.FirstOrDefault(m => m.PropertyName == displayProperty).Model);
-                        }
+                        string controller = (string)linkMetadata.AdditionalValues[Resources.TableLinkAttribute_ControllerName];
+                        string action = (string)linkMetadata.AdditionalValues[Resources.TableLinkAttribute_ActionName];
+                        object routeValue = linkMetadata.AdditionalValues[Resources.TableLinkAttribute_RouteValue];
+                        string displayProperty = (string)linkMetadata.AdditionalValues[Resources.TableLinkAttribute_DisplayProperty];
+                        ModelMetadata displayPropertyMetadata = linkMetadata.Properties.FirstOrDefault(m => m.PropertyName == displayProperty);
+                        string displayText = displayPropertyMetadata.GetFormattedValue();
+                        MvcHtmlString link = helper.ActionLink(displayText, action, controller, new { id = routeValue }, null);
                         text = link.ToString();
                     }
                     else if (propertyMetadata.Model != null && column.HasDisplayProperty)
@@ -827,19 +815,26 @@ namespace Sandtrap.Web.Html
             }
             if (!isRecursive)
             {
-                if (data.IncludeDetailsLink)
+                if (data.IncludeDetailsLink || data.IncludeEditLink)
                 {
-                    string url = (string)metaData.AdditionalValues[Resources.TableDisplayAttribute_DetailsLinkUrl];
-                    string link = Hyperlink(url, "Details", "details-link");
-                    string cell = TableCell(link);
-                    html.Append(cell);
-                }
-                if (data.IncludeEditLink)
-                {
-                    string url = (string)metaData.AdditionalValues[Resources.TableDisplayAttribute_EditLinkUrl];
-                    string link = Hyperlink(url, "Edit", "edit-link");
-                    string cell = TableCell(link);
-                    html.Append(cell);
+                    // TODO: The controller can be set when building the header
+                    string controller = (string)metadata.AdditionalValues[Resources.TableDisplayAttribute_ControllerName];
+
+                    object routeValue = metadata.AdditionalValues[Resources.TableDisplayAttribute_RouteValue];
+                    if (data.IncludeDetailsLink)
+                    {
+                        string action = (string)metadata.AdditionalValues[Resources.TableDisplayAttribute_DetailsActionName];
+                        MvcHtmlString link = helper.ActionLink("Details", action, controller, new { id = routeValue }, new { @class = "details-link" });
+                        string cell = TableCell(link.ToString());
+                        html.Append(cell);
+                    }
+                    if (data.IncludeEditLink)
+                    {
+                        string action = (string)metadata.AdditionalValues[Resources.TableDisplayAttribute_EditActionName];
+                        MvcHtmlString link = helper.ActionLink("Edit", action, controller, new { id = routeValue }, new { @class = "edit-link" });
+                        string cell = TableCell(link.ToString());
+                        html.Append(cell);
+                    }
                 }
             }
             // Return the html
@@ -1160,7 +1155,7 @@ namespace Sandtrap.Web.Html
             return cell.ToString();
         }
 
-        // Returns a <div> element
+        // Returns a <div> element containing the text
         private static string TableText(string text, string className = null)
         {
             TagBuilder div = new TagBuilder("div");
@@ -1171,20 +1166,6 @@ namespace Sandtrap.Web.Html
             div.AddCssClass(className);
             div.InnerHtml = text;
             return div.ToString();
-        }
-
-        // Returns a <a> element
-        public static string Hyperlink(string url, string text, string className = null)
-        {
-            TagBuilder link = new TagBuilder("a");
-            link.MergeAttribute("href", url);
-            link.InnerHtml = text;
-            if (String.IsNullOrEmpty(className))
-            {
-                link.AddCssClass(className);
-
-            }
-            return link.ToString();
         }
 
         // Generates a <td> element containing a form control
