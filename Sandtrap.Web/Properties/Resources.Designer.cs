@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Tables.Properties {
+namespace Sandtrap.Web.Properties {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Tables.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace Tables.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Tables.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Sandtrap.Web.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace Tables.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The property {0} used to define a datalist does not implement IEnumerable&lt;string&gt;..
         /// </summary>
-        internal static string DataListAttribute__InvalidDataList {
+        public static string DataListAttribute__InvalidDataList {
             get {
                 return ResourceManager.GetString("DataListAttribute__InvalidDataList", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to DataListProperty.
         /// </summary>
-        internal static string DataListAttribute_DataListProperty {
+        public static string DataListAttribute_DataListProperty {
             get {
                 return ResourceManager.GetString("DataListAttribute_DataListProperty", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The property {0} used to define a datalist is an empty collection.
         /// </summary>
-        internal static string DataListAttribute_EmptyDataList {
+        public static string DataListAttribute_EmptyDataList {
             get {
                 return ResourceManager.GetString("DataListAttribute_EmptyDataList", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The model in the view does not contain a property for a DataList named {0}.
         /// </summary>
-        internal static string DataListAttribute_MissingDataList {
+        public static string DataListAttribute_MissingDataList {
             get {
                 return ResourceManager.GetString("DataListAttribute_MissingDataList", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The DataList for property {0} cannot be null..
         /// </summary>
-        internal static string DataListAttribute_NullDataList {
+        public static string DataListAttribute_NullDataList {
             get {
                 return ResourceManager.GetString("DataListAttribute_NullDataList", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The property {0} used to define a SelectList does not implement IEnumerable&lt;SelectListItem&gt;..
         /// </summary>
-        internal static string DropDownListAttribute__InvalidSelectList {
+        public static string DropDownListAttribute__InvalidSelectList {
             get {
                 return ResourceManager.GetString("DropDownListAttribute__InvalidSelectList", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The property {0} used to define a SelectList is an empty collection.
         /// </summary>
-        internal static string DropDownListAttribute_EmptySelectList {
+        public static string DropDownListAttribute_EmptySelectList {
             get {
                 return ResourceManager.GetString("DropDownListAttribute_EmptySelectList", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The model in the view does not contain a property for a SelectList named {0}.
         /// </summary>
-        internal static string DropDownListAttribute_MissingSelectList {
+        public static string DropDownListAttribute_MissingSelectList {
             get {
                 return ResourceManager.GetString("DropDownListAttribute_MissingSelectList", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The SelectList for property {0} cannot be null..
         /// </summary>
-        internal static string DropDownListAttribute_NullSelectList {
+        public static string DropDownListAttribute_NullSelectList {
             get {
                 return ResourceManager.GetString("DropDownListAttribute_NullSelectList", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to SelectListOptionLabel.
         /// </summary>
-        internal static string DropDownListAttribute_OptionLabel {
+        public static string DropDownListAttribute_OptionLabel {
             get {
                 return ResourceManager.GetString("DropDownListAttribute_OptionLabel", resourceCulture);
             }
@@ -153,16 +153,16 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to SelectListProperty.
         /// </summary>
-        internal static string DropDownListAttribute_SelectListProperty {
+        public static string DropDownListAttribute_SelectListProperty {
             get {
                 return ResourceManager.GetString("DropDownListAttribute_SelectListProperty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The model cannot be IDictionary&lt;TKey, TValue&gt; or IEnumerable&lt;IGrouping&lt;TKey, TValue&gt;&gt;.
+        ///   Looks up a localized string similar to The model cannot be IDictionary&lt;TKey, TValue&gt; or IEnumerable&lt;IGrouping&lt;TKey, TValue&gt;&gt; or ILookup&lt;TKey, TValue&gt;.
         /// </summary>
-        internal static string Table_GroupedCollection {
+        public static string Table_GroupedCollection {
             get {
                 return ResourceManager.GetString("Table_GroupedCollection", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The type in the collection does not have a parameterless constructor.
         /// </summary>
-        internal static string Table_NoTypeConstructor {
+        public static string Table_NoTypeConstructor {
             get {
                 return ResourceManager.GetString("Table_NoTypeConstructor", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The model cannot be null.
         /// </summary>
-        internal static string Table_NullCollection {
+        public static string Table_NullCollection {
             get {
                 return ResourceManager.GetString("Table_NullCollection", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The type in the collection could not be resolved.
         /// </summary>
-        internal static string Table_UnresolvedType {
+        public static string Table_UnresolvedType {
             get {
                 return ResourceManager.GetString("Table_UnresolvedType", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to TableColumnDisplayProperty.
         /// </summary>
-        internal static string TableColumnAttribute_DisplayProperty {
+        public static string TableColumnAttribute_DisplayProperty {
             get {
                 return ResourceManager.GetString("TableColumnAttribute_DisplayProperty", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to TableColumnExclude.
         /// </summary>
-        internal static string TableColumnAttribute_Exclude {
+        public static string TableColumnAttribute_Exclude {
             get {
                 return ResourceManager.GetString("TableColumnAttribute_Exclude", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to TableColumnIDProperty.
         /// </summary>
-        internal static string TableColumnAttribute_IDProperty {
+        public static string TableColumnAttribute_IDProperty {
             get {
                 return ResourceManager.GetString("TableColumnAttribute_IDProperty", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to TableColumnIncludeTotal.
         /// </summary>
-        internal static string TableColumnAttribute_IncludeTotal {
+        public static string TableColumnAttribute_IncludeTotal {
             get {
                 return ResourceManager.GetString("TableColumnAttribute_IncludeTotal", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The class definition &apos;{0}&apos; does not contain a public property named &apos;{1}&apos;.
         /// </summary>
-        internal static string TableColumnAttribute_InvalidProperty {
+        public static string TableColumnAttribute_InvalidProperty {
             get {
                 return ResourceManager.GetString("TableColumnAttribute_InvalidProperty", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to TableColumnNoRepeat.
         /// </summary>
-        internal static string TableColumnAttribute_NoRepeat {
+        public static string TableColumnAttribute_NoRepeat {
             get {
                 return ResourceManager.GetString("TableColumnAttribute_NoRepeat", resourceCulture);
             }
@@ -252,34 +252,43 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to TableColumnReadonly.
         /// </summary>
-        internal static string TableColumnAttribute_Readonly {
+        public static string TableColumnAttribute_Readonly {
             get {
                 return ResourceManager.GetString("TableColumnAttribute_Readonly", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TableDetailsLinkUrl.
+        ///   Looks up a localized string similar to TableControllerName.
         /// </summary>
-        internal static string TableDisplayAttribute_DetailsLinkUrl {
+        public static string TableDisplayAttribute_ControllerName {
             get {
-                return ResourceManager.GetString("TableDisplayAttribute_DetailsLinkUrl", resourceCulture);
+                return ResourceManager.GetString("TableDisplayAttribute_ControllerName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TableEditLinkUrl.
+        ///   Looks up a localized string similar to TableDetailsActionName.
         /// </summary>
-        internal static string TableDisplayAttribute_EditLinkUrl {
+        public static string TableDisplayAttribute_DetailsActionName {
             get {
-                return ResourceManager.GetString("TableDisplayAttribute_EditLinkUrl", resourceCulture);
+                return ResourceManager.GetString("TableDisplayAttribute_DetailsActionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TableEditActionName.
+        /// </summary>
+        public static string TableDisplayAttribute_EditActionName {
+            get {
+                return ResourceManager.GetString("TableDisplayAttribute_EditActionName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to IncludeDetailsLink.
         /// </summary>
-        internal static string TableDisplayAttribute_IncludeDetailsLink {
+        public static string TableDisplayAttribute_IncludeDetailsLink {
             get {
                 return ResourceManager.GetString("TableDisplayAttribute_IncludeDetailsLink", resourceCulture);
             }
@@ -288,7 +297,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to IncludeEditLink.
         /// </summary>
-        internal static string TableDisplayAttribute_IncludeEditLink {
+        public static string TableDisplayAttribute_IncludeEditLink {
             get {
                 return ResourceManager.GetString("TableDisplayAttribute_IncludeEditLink", resourceCulture);
             }
@@ -297,34 +306,43 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to IncludeRowNumbers.
         /// </summary>
-        internal static string TableDisplayAttribute_IncludeRowNumbers {
+        public static string TableDisplayAttribute_IncludeRowNumbers {
             get {
                 return ResourceManager.GetString("TableDisplayAttribute_IncludeRowNumbers", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The model in the view does not contain a property for a DataList named {0}.
+        ///   Looks up a localized string similar to The class definition &apos;{0}&apos; does not contain a public property named &apos;{1}&apos;.
         /// </summary>
-        internal static string TableDisplayAttribute_InvalidProperty {
+        public static string TableDisplayAttribute_InvalidProperty {
             get {
                 return ResourceManager.GetString("TableDisplayAttribute_InvalidProperty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The controller cannot be null..
+        ///   Looks up a localized string similar to The controller cannot be null.
         /// </summary>
-        internal static string TableDisplayAttribute_NullController {
+        public static string TableDisplayAttribute_NullController {
             get {
                 return ResourceManager.GetString("TableDisplayAttribute_NullController", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TableRouteValue.
+        /// </summary>
+        public static string TableDisplayAttribute_RouteValue {
+            get {
+                return ResourceManager.GetString("TableDisplayAttribute_RouteValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TableEditAllowAdditions.
         /// </summary>
-        internal static string TableEditAttribute_AllowAdditions {
+        public static string TableEditAttribute_AllowAdditions {
             get {
                 return ResourceManager.GetString("TableEditAttribute_AllowAdditions", resourceCulture);
             }
@@ -333,7 +351,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to TableEditAllowDeletions.
         /// </summary>
-        internal static string TableEditAttribute_AllowDeletions {
+        public static string TableEditAttribute_AllowDeletions {
             get {
                 return ResourceManager.GetString("TableEditAttribute_AllowDeletions", resourceCulture);
             }
@@ -342,7 +360,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The class definition &apos;{0}&apos; does not contain a public property named &apos;{1}&apos;.
         /// </summary>
-        internal static string TableEditAttribute_InvalidProperty {
+        public static string TableEditAttribute_InvalidProperty {
             get {
                 return ResourceManager.GetString("TableEditAttribute_InvalidProperty", resourceCulture);
             }
@@ -351,7 +369,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to TableEditActiveProperty.
         /// </summary>
-        internal static string TableEditAttribute_IsActiveProperty {
+        public static string TableEditAttribute_IsActiveProperty {
             get {
                 return ResourceManager.GetString("TableEditAttribute_IsActiveProperty", resourceCulture);
             }
@@ -360,7 +378,7 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to TableEditDirtyProperty.
         /// </summary>
-        internal static string TableEditAttribute_IsDirtyProperty {
+        public static string TableEditAttribute_IsDirtyProperty {
             get {
                 return ResourceManager.GetString("TableEditAttribute_IsDirtyProperty", resourceCulture);
             }
@@ -369,25 +387,43 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The property &apos;{0}&apos; is not a boolean.
         /// </summary>
-        internal static string TableEditAttribute_NotBool {
+        public static string TableEditAttribute_NotBool {
             get {
                 return ResourceManager.GetString("TableEditAttribute_NotBool", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LinkDisplayProperty.
+        ///   Looks up a localized string similar to TableLinkActionName.
         /// </summary>
-        internal static string TableLinkAttribute_DisplayProperty {
+        public static string TableLinkAttribute_ActionName {
+            get {
+                return ResourceManager.GetString("TableLinkAttribute_ActionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TableLinkControllerName.
+        /// </summary>
+        public static string TableLinkAttribute_ControllerName {
+            get {
+                return ResourceManager.GetString("TableLinkAttribute_ControllerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TableLinkDisplayProperty.
+        /// </summary>
+        public static string TableLinkAttribute_DisplayProperty {
             get {
                 return ResourceManager.GetString("TableLinkAttribute_DisplayProperty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IncludeLink.
+        ///   Looks up a localized string similar to TableLinkInclude.
         /// </summary>
-        internal static string TableLinkAttribute_IncludeLink {
+        public static string TableLinkAttribute_IncludeLink {
             get {
                 return ResourceManager.GetString("TableLinkAttribute_IncludeLink", resourceCulture);
             }
@@ -396,27 +432,27 @@ namespace Tables.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The class definition &apos;{0}&apos; does not contain a public property named &apos;{1}&apos;.
         /// </summary>
-        internal static string TableLinkAttribute_InvalidProperty {
+        public static string TableLinkAttribute_InvalidProperty {
             get {
                 return ResourceManager.GetString("TableLinkAttribute_InvalidProperty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LinkUrl.
+        ///   Looks up a localized string similar to The controller cannot be null.
         /// </summary>
-        internal static string TableLinkAttribute_LinkUrl {
+        public static string TableLinkAttribute_NullController {
             get {
-                return ResourceManager.GetString("TableLinkAttribute_LinkUrl", resourceCulture);
+                return ResourceManager.GetString("TableLinkAttribute_NullController", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The controller cannot be null..
+        ///   Looks up a localized string similar to TableLinkRouteValue.
         /// </summary>
-        internal static string TableLinkAttribute_NullController {
+        public static string TableLinkAttribute_RouteValue {
             get {
-                return ResourceManager.GetString("TableLinkAttribute_NullController", resourceCulture);
+                return ResourceManager.GetString("TableLinkAttribute_RouteValue", resourceCulture);
             }
         }
     }
