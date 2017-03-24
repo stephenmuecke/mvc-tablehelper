@@ -1,7 +1,6 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Web.Mvc;
-using Sandtrap.Web.Models;
 using Sandtrap.Web.Properties;
 
 namespace Sandtrap.Web.DataAnnotations
@@ -27,7 +26,7 @@ namespace Sandtrap.Web.DataAnnotations
         /// </summary>
         /// <remarks>
         /// The default values for the <see cref="AllowAdditions"/> and <see cref="AllowDeletions"/> 
-        /// properties are true. Applying the attribute renders the html to 
+        /// properties are true. Applying the attribute setting the properties renders the html to 
         /// allow both addition and deletion of rows.
         /// </remarks>
         public TableEditAttribute()
@@ -56,17 +55,11 @@ namespace Sandtrap.Web.DataAnnotations
         /// <summary>
         /// Gets or sets the name of the property that identifies if the model has changed.
         /// </summary>
-        /// <remarks>
-        /// If the model implements <see cref="Sandtrap.Web.Models.ITableRow"/>, setting this property is not required.
-        /// </remarks>
         public string IsDirtyProperty { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the property that identifies if the model is active.
         /// </summary>
-        /// <remarks>
-        /// If the model implements <see cref="Sandtrap.Web.Models.ITableRow"/>, setting this property is not required.
-        /// </remarks>
         public string IsActiveProperty { get; set; }
 
         #endregion
@@ -86,45 +79,37 @@ namespace Sandtrap.Web.DataAnnotations
             {
                 metadata.AdditionalValues[Resources.TableEditAttribute_AllowDeletions] = true;
             }
-            if (typeof(ITableRow).IsAssignableFrom(metadata.ModelType))
+            // Check the IsDirty and IsActive exist and are booleans.
+            if (IsDirtyProperty != null)
             {
-                metadata.AdditionalValues[Resources.TableEditAttribute_IsDirtyProperty] = "IsDirty";
-                metadata.AdditionalValues[Resources.TableEditAttribute_IsActiveProperty] = "IsActive";
+                ModelMetadata isDirtyMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == IsDirtyProperty);
+                if (isDirtyMetadata == null)
+                {
+                    string message = String.Format(Resources.TableEditAttribute_InvalidProperty, metadata.ModelType.Name, IsDirtyProperty);
+                    throw new ArgumentNullException("IsDirtyProperty", message);
+                }
+                if (isDirtyMetadata.ModelType != typeof(bool))
+                {
+                    string message = String.Format(Resources.TableEditAttribute_NotBool, IsDirtyProperty);
+                    throw new ArgumentException(message);
+                }
+                metadata.AdditionalValues[Resources.TableEditAttribute_IsDirtyProperty] = IsDirtyProperty;
             }
-            else
+            if (IsActiveProperty != null)
             {
-                // Check the IsDirty and IsActive exist and are booleans.
-                if (IsDirtyProperty != null)
+                ModelMetadata isActiveMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == IsActiveProperty);
+                if (isActiveMetadata == null)
                 {
-                    ModelMetadata isDirtyMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == IsDirtyProperty);
-                    if (isDirtyMetadata == null)
-                    {
-                        string message = String.Format(Resources.TableEditAttribute_InvalidProperty, metadata.ModelType.Name, IsDirtyProperty);
-                        throw new ArgumentNullException(message);
-                    }
-                    if (isDirtyMetadata.ModelType != typeof(bool))
-                    {
-                        string message = String.Format(Resources.TableEditAttribute_NotBool, IsDirtyProperty);
-                        throw new ArgumentException(message);
-                    }
-                    metadata.AdditionalValues[Resources.TableEditAttribute_IsDirtyProperty] = IsDirtyProperty;
+                    string message = String.Format(Resources.TableEditAttribute_InvalidProperty, metadata.ModelType.Name, IsActiveProperty);
+                    throw new ArgumentNullException("IsActiveProperty", message);
                 }
-                if (IsActiveProperty != null)
+                if (isActiveMetadata.ModelType != typeof(bool))
                 {
-                    ModelMetadata isActiveMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == IsActiveProperty);
-                    if (isActiveMetadata == null)
-                    {
-                        string message = String.Format(Resources.TableEditAttribute_InvalidProperty, metadata.ModelType.Name, IsActiveProperty);
-                        throw new ArgumentNullException(message);
-                    }
-                    if (isActiveMetadata.ModelType != typeof(bool))
-                    {
-                        string message = String.Format(Resources.TableEditAttribute_NotBool, IsActiveProperty);
-                        throw new ArgumentException(message);
-                    }
-                    metadata.AdditionalValues[Resources.TableEditAttribute_IsActiveProperty] = IsActiveProperty;
+                    string message = String.Format(Resources.TableEditAttribute_NotBool, IsActiveProperty);
+                    throw new ArgumentException(message);
                 }
-            }
+                metadata.AdditionalValues[Resources.TableEditAttribute_IsActiveProperty] = IsActiveProperty;
+            }  
         }
 
         #endregion
@@ -132,4 +117,3 @@ namespace Sandtrap.Web.DataAnnotations
     }
 
 }
-
