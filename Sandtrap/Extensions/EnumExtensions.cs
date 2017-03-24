@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
@@ -7,8 +8,6 @@ namespace Sandtrap.Extensions
     
     public static class EnumExtensions
     {
-
-        #region .Methods 
 
         /// <summary>
         /// Extension method to return the display value of an enum. 
@@ -34,7 +33,21 @@ namespace Sandtrap.Extensions
             return value.ToString();
         }
 
-        #endregion
+        public static string ToDescription(this Enum value)
+        {
+            if (value == null)
+            {
+                return null;
+            }
+            FieldInfo field = value.GetType().GetField(value.ToString());
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])field
+                .GetCustomAttributes(typeof(DescriptionAttribute), false);
+            if (attributes.Length > 0)
+            {
+                return attributes[0].Description;
+            }
+            return value.ToString();
+        }
 
     }
 }
