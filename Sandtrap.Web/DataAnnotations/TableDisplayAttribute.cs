@@ -117,22 +117,23 @@ namespace Sandtrap.Web.DataAnnotations
                 {
                     throw new ArgumentNullException("Controller", Resources.TableDisplayAttribute_NullController);
                 }
+                // Add metadata
+                metadata.AdditionalValues.Add(Resources.TableDisplayAttribute_ControllerName, Controller);
                 // Check the ID property exists
                 ModelMetadata idMetadata = metadata.Properties.FirstOrDefault(m => m.PropertyName == IDProperty);
                 if (idMetadata == null)
                 {
                     throw new ArgumentException(string.Format(Resources.TableDisplayAttribute_InvalidProperty, metadata.ModelType.Name, IDProperty));
                 }
-                UrlHelper urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-                object id = idMetadata.Model;
+                // Add metadata
+                metadata.AdditionalValues.Add(Resources.TableDisplayAttribute_RouteValue, idMetadata.Model);
                 if (DetailsAction != null)
                 {
                     // Add metadata
                     metadata.AdditionalValues[Resources.TableDisplayAttribute_IncludeDetailsLink] = true;
                     if (metadata.Model != null)
                     {
-                        string url = urlHelper.Action(DetailsAction, Controller, new { id = id });
-                        metadata.AdditionalValues[Resources.TableDisplayAttribute_DetailsLinkUrl] = url;
+                        metadata.AdditionalValues[Resources.TableDisplayAttribute_DetailsActionName] = DetailsAction;
                     }
                 }
                 if (EditAction != null)
@@ -141,8 +142,7 @@ namespace Sandtrap.Web.DataAnnotations
                     metadata.AdditionalValues[Resources.TableDisplayAttribute_IncludeEditLink] = true;
                     if (metadata.Model != null)
                     {
-                        var url = urlHelper.Action(EditAction, Controller, new { id = id });
-                        metadata.AdditionalValues[Resources.TableDisplayAttribute_EditLinkUrl] = url;
+                        metadata.AdditionalValues[Resources.TableDisplayAttribute_EditActionName] = EditAction;
                     }
                 }
             }

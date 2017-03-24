@@ -134,13 +134,12 @@ namespace Sandtrap.Web.DataAnnotations
             }
             // Add metadata
             metadata.AdditionalValues[Resources.TableLinkAttribute_IncludeLink] = true;
+            metadata.AdditionalValues.Add(Resources.TableLinkAttribute_ControllerName, Controller);
+            metadata.AdditionalValues.Add(Resources.TableLinkAttribute_ActionName, Action);
             metadata.AdditionalValues[Resources.TableLinkAttribute_DisplayProperty] = DisplayProperty;
             if (metadata.Model != null)
             {
-                // TODO: Area name
-                var urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-                var url = urlHelper.Action("Details", "Home", new { id = idMetadata.Model });
-                metadata.AdditionalValues[Resources.TableLinkAttribute_LinkUrl] = url;
+                metadata.AdditionalValues[Resources.TableLinkAttribute_RouteValue] = idMetadata.Model;
             }
         }
 
