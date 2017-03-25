@@ -131,19 +131,13 @@ namespace Sandtrap.Web.DataAnnotations
                 {
                     // Add metadata
                     metadata.AdditionalValues[Resources.TableDisplayAttribute_IncludeDetailsLink] = true;
-                    if (metadata.Model != null)
-                    {
-                        metadata.AdditionalValues[Resources.TableDisplayAttribute_DetailsActionName] = DetailsAction;
-                    }
+                    metadata.AdditionalValues[Resources.TableDisplayAttribute_DetailsActionName] = DetailsAction;
                 }
                 if (EditAction != null)
                 {
                     // Add metadata
                     metadata.AdditionalValues[Resources.TableDisplayAttribute_IncludeEditLink] = true;
-                    if (metadata.Model != null)
-                    {
-                        metadata.AdditionalValues[Resources.TableDisplayAttribute_EditActionName] = EditAction;
-                    }
+                    metadata.AdditionalValues[Resources.TableDisplayAttribute_EditActionName] = EditAction;
                 }
             }
         }
