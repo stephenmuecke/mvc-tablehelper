@@ -67,7 +67,7 @@ namespace Sandtrap.Web.UnitTests.DataAnnotationTests
         }
 
         /// <summary>
-        /// Specifying IsActiveProperty and IsDirtyProperty should add AdditionalValues etities 
+        /// Specifying IsActiveProperty and IsDirtyProperty should add AdditionalValues entries 
         /// matching the property names.
         /// </summary>
         [TestMethod]
