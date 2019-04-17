@@ -1253,11 +1253,12 @@ namespace Sandtrap.Web.Html
             string pattern = @"(.+)\[([^\]]+)\]";
             Regex regex = new Regex(pattern);
             var match = regex.Match(prefix);
-
-
             string name = string.Format("{0}.Index", match.Groups[1].Value);
             string indexer = match.Groups[2].Value;
-
+            if (indexer == "#")
+            {
+                indexer = "%";
+            }
             TagBuilder input = new TagBuilder("input");
             input.MergeAttribute("type", "hidden");
             input.MergeAttribute("name", name);
