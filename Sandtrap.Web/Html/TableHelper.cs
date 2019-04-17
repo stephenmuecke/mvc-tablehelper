@@ -775,7 +775,7 @@ namespace Sandtrap.Web.Html
                     {
                         // The link can be applied at either class or property level
                         ModelMetadata linkMetadata = metadata;
-                        if (!metadata.AdditionalValues.ContainsKey(Resources.TableLinkAttribute_IncludeLink))
+                        if (propertyMetadata.AdditionalValues.ContainsKey(Resources.TableLinkAttribute_IncludeLink))
                         {
                             linkMetadata = propertyMetadata;
                         }
