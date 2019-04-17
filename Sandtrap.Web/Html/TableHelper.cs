@@ -1250,7 +1250,7 @@ namespace Sandtrap.Web.Html
         // Returns the hidden input for the row indexer.
         private static string RowIndexer(string prefix)
         {
-            string pattern = @"(.+)\[([^\]])+\]";
+            string pattern = @"(.+)\[([^\]]+)\]";
             Regex regex = new Regex(pattern);
             var match = regex.Match(prefix);
 
